@@ -26,7 +26,7 @@ class Login_Flow_Redirects {
 				exit;
 			}
 
-			$sign_in_slug = get_post_field( 'post_name', 'sign-in' );
+			$sign_in_slug = 'sign-in';
 			$login_url    = home_url( $sign_in_slug );
 
 			if ( ! empty( $redirect_to ) ) {
@@ -49,7 +49,7 @@ class Login_Flow_Redirects {
 			if ( is_user_logged_in() ) {
 				$this->redirect_logged_in_user();
 			} else {
-				$sign_up_slug = get_post_field( 'post_name', 'sign-up' );
+				$sign_up_slug = 'sign-up';
 
 				wp_redirect( home_url( $sign_up_slug ) );
 			}
@@ -71,7 +71,7 @@ class Login_Flow_Redirects {
 				exit;
 			}
 
-			$password_lost_slug = get_post_field( 'post_name', 'password-lost' );
+			$password_lost_slug = 'password-lost';
 
 			wp_redirect( home_url( $password_lost_slug ) );
 
@@ -89,7 +89,7 @@ class Login_Flow_Redirects {
 			$user = check_password_reset_key( $_REQUEST['key'], $_REQUEST['login'] );
 
 			if ( ! $user || is_wp_error( $user ) ) {
-				$sign_in_slug = get_post_field( 'post_name', 'sign-in' );
+				$sign_in_slug = 'sign-in';
 
 				if ( $user && $user->get_error_code() === 'expired_key' ) {
 					wp_redirect( home_url( $sign_in_slug . '?login=expiredkey' ) );
@@ -100,7 +100,7 @@ class Login_Flow_Redirects {
 				exit;
 			}
 
-			$password_reset_slug = get_post_field( 'post_name', 'password-lost' );
+			$password_reset_slug = 'password-lost';
 
 			$redirect_url = home_url( $password_reset_slug );
 			$redirect_url = add_query_arg( 'login', esc_attr( $_REQUEST['login'] ), $redirect_url );
@@ -149,7 +149,7 @@ class Login_Flow_Redirects {
 	 */
 	public function redirect_after_sign_out() {
 
-		$sign_in_slug = get_post_field( 'post_name', 'sign-in' );
+		$sign_in_slug = 'sign-in';
 		$redirect_url = home_url( $sign_in_slug . '?sign_out=true' );
 
 		wp_safe_redirect( $redirect_url );
@@ -173,7 +173,7 @@ class Login_Flow_Redirects {
 			if ( is_wp_error( $user ) ) {
 				$error_codes = join( ',', $user->get_error_codes() );
 
-				$sign_in_slug = get_post_field( 'post_name', 'sign-in' );
+				$sign_in_slug = 'sign-in';
 
 				$login_url = home_url( $sign_in_slug );
 				$login_url = add_query_arg( 'login', $error_codes, $login_url );
